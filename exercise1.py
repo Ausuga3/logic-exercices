@@ -1,6 +1,8 @@
 
 def registrar_cliente():
+    id= -1
     while True:
+        id=id+1
         print("---Registrarse!!---")
         nombre = input("Ingrese su nombre: ")
         apellido = input("ingrese su apellido: ")
@@ -13,16 +15,21 @@ def registrar_cliente():
                 "apellido":apellido,
                 "edad":edad,
                 "dinero":dinero}
+        print(f"tu ID es: {id}")
         return cliente
         
 def comprar_producto(productos,cliente):
-    
+    id_cliente=int(input(" cual es tu id?: "))
     producto=input("Que deseas comprar?: ")
     if producto in productos and productos[producto]["stock"] > 0:
-        if cliente["dinero"] >= productos[producto]["valor"]:
-            cliente["dinero"] -= productos[producto]["valor"]
+        if cliente[id_cliente]["dinero"] >= productos[producto]["valor"]:
+            cliente[id_cliente]["dinero"] -= productos[producto]["valor"]
             productos[producto]["stock"] -= 1
-
+            print(productos,clientes)
+        else:
+            print("No tienes suficiente dinero!")    
+    else:
+        print("No existe este producto")
 
 
 def devolver_prodcuto():
@@ -42,7 +49,7 @@ productos ={
     }
     
 if __name__ == "__main__":
-    clientes=[]   
+    clientes=[] 
 
     while True:
         opc = int(input("""Que deseas hacer:
@@ -56,7 +63,7 @@ if __name__ == "__main__":
             print(clientes)
         elif opc == 2:
             comprar_producto(productos,clientes)
-            print(productos,clientes)
+            
             
         elif opc ==3:
             pass
