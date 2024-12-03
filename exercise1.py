@@ -14,10 +14,20 @@ def registrar_cliente():
         cliente={"nombre":nombre,
                 "apellido":apellido,
                 "edad":edad,
-                "dinero":dinero}
+                "dinero":dinero,
+                "ultima_accion":None}
         print(f"tu ID es: {id}")
         return cliente
+    
+def mostrar_estado_cliente(clientes):
+    for cliente,datos in clientes.items():
+        print(f"""
+        {cliente}:
+        Stock {datos["dinero"]}
+        Ultima Accion {datos["ultima_accion"]}
         
+        """)
+
 def comprar_producto(productos,cliente):
     id_cliente=int(input(" cual es tu id?: "))
     producto=input("Que deseas comprar?: ")
@@ -25,7 +35,8 @@ def comprar_producto(productos,cliente):
         if cliente[id_cliente]["dinero"] >= productos[producto]["valor"]:
             cliente[id_cliente]["dinero"] -= productos[producto]["valor"]
             productos[producto]["stock"] -= 1
-            print(productos,clientes)
+            clientes[id_cliente]["ultima_accion"]="Comprar"
+            print(clientes[id_cliente])
         else:
             print("No tienes suficiente dinero!")    
     else:
@@ -35,17 +46,21 @@ def comprar_producto(productos,cliente):
 def devolver_prodcuto():
     pass
 
-def mostrar_estado_tienda():
-    pass
+def mostrar_estado_tienda(productos):
+    for producto,datos in productos.items():
+        print(f"""
+        {producto}:
+        Stock {datos["stock"]}
+        Defectos {datos["defectos"]}
+        """)
 
-def mostrar_estado_cliente():
-    pass
+
         
 
 productos ={ 
-    "camisa":{"valor":5000,"stock":10,"defectuoso":0},
-    "pantalon":{"valor":7000,"stock":5,"defectuoso":0},
-    "traje":{"valor":10000,"stock":82,"defectuoso":0}
+    "camisa":{"valor":5000,"stock":10,"defectos":0},
+    "pantalon":{"valor":7000,"stock":5,"defectos":0},
+    "traje":{"valor":10000,"stock":82,"defectos":0}
     }
     
 if __name__ == "__main__":
@@ -66,7 +81,7 @@ if __name__ == "__main__":
             
             
         elif opc ==3:
-            pass
+            mostrar_estado_tienda(productos)
         elif opc == 4:
             print("Vuela pronto!")
             break    
