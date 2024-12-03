@@ -18,6 +18,10 @@ def registrar_cliente():
 def comprar_producto(producto):
     for i in producto:
         print(i)
+    compra=input("Que deseas comprar?: ")
+    if compra in producto and compra["camisa"]["stock"]>0:
+        compra["camisa"]["stock"]=compra["camisa"]["stock"]-1
+    return producto    
 
 def devolver_prodcuto():
     pass
@@ -31,11 +35,11 @@ def mostrar_estado_cliente():
 
 if __name__ == "__main__":
     clientes=[]   
-    productos = {
-    "camisa":{"valor":5000,"stock":10,"defectuoso":0},
-    "pantalon":{"valor":7000,"stock":5,"defectuoso":0},
-    "traje":{"valor":10000,"stock":82,"defectuoso":0},
-}     
+    productos = [
+    {"camisa":{"valor":5000,"stock":10,"defectuoso":0}},
+    {"pantalon":{"valor":7000,"stock":5,"defectuoso":0}},
+    {"traje":{"valor":10000,"stock":82,"defectuoso":0}},
+]     
 
     while True:
         opc = int(input("""Que deseas hacer:
@@ -47,7 +51,8 @@ if __name__ == "__main__":
             clientes.append(registrar_cliente() )    
             print(clientes)
         elif opc ==2:
-            comprar_producto(productos)
+            compra = comprar_producto(productos)
+            print(compra)
         elif opc ==3:
             pass
         elif opc == 4:
